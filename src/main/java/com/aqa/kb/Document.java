@@ -1,6 +1,7 @@
 package com.aqa.kb;
 
 import com.aqa.relations.SemanticRelation;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
@@ -19,7 +20,8 @@ public class Document {
      * @param parse             the given parse string
      * @param semanticRelations the given semantic relations
      */
-    public Document(int id, String parse, List<SemanticRelation> semanticRelations) {
+    public Document(@JsonProperty("id") int id, @JsonProperty("parse") String parse,
+                    @JsonProperty("semanticRelations") List<SemanticRelation> semanticRelations) {
         this.id = id;
         this.parse = parse;
         this.semanticRelations = semanticRelations;
@@ -50,5 +52,14 @@ public class Document {
      */
     public List<SemanticRelation> getSemanticRelations() {
         return semanticRelations;
+    }
+
+    @Override
+    public String toString() {
+        return "Document{" +
+                "id=" + id +
+                ", parse='" + parse + '\'' +
+                ", semanticRelations=" + semanticRelations +
+                '}';
     }
 }

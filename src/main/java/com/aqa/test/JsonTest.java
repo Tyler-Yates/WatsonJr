@@ -3,12 +3,12 @@ package com.aqa.test;
 import com.aqa.kb.KnowledgeBase;
 import com.aqa.relations.SemanticRelation;
 import com.aqa.relations.SemanticRelationExtractor;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import edu.stanford.nlp.simple.Sentence;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -48,11 +48,13 @@ class JsonTest {
         knowledgeBase.addDocument("Bob works at Google.", extractor2);
 
         final ObjectMapper mapper = new ObjectMapper();
-        final String s;
+        final String jsonString;
         try {
-            s = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(knowledgeBase);
-            System.out.println(s);
-        } catch (JsonProcessingException e) {
+            jsonString = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(knowledgeBase);
+            System.out.println(jsonString);
+            final KnowledgeBase reconstructed = mapper.readValue(jsonString, KnowledgeBase.class);
+            System.out.println(reconstructed);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

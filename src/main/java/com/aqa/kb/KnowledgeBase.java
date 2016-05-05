@@ -35,4 +35,11 @@ public class KnowledgeBase {
         final List<SemanticRelation> semanticRelations = semanticRelationExtractor.extractSemanticRelations(sentence);
         documents.add(new Document(id, sentence.parse().toString(), semanticRelations));
     }
+
+    @Override
+    public String toString() {
+        return "KnowledgeBase{" +
+                "documents=" + documents +
+                '}';
+    }
 }

@@ -1,5 +1,6 @@
 package com.aqa.relations;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.Joiner;
 
 import java.util.Map;
@@ -17,7 +18,7 @@ public class SemanticRelation {
      * @param name     the given name
      * @param features the given features
      */
-    public SemanticRelation(String name, Map<String, String> features) {
+    public SemanticRelation(@JsonProperty("name") String name, @JsonProperty("features") Map<String, String> features) {
         this.name = name;
         this.features = features;
     }
