@@ -45,7 +45,7 @@ class JsonTest {
 
         final KnowledgeBase knowledgeBase = new KnowledgeBase();
         knowledgeBase.addDocument("John cooked fish with a frying pan.", extractor1);
-        knowledgeBase.addDocument("Bob works at Google.", extractor2);
+        knowledgeBase.addDocument("Bob works at Google in San Francisco.", extractor2);
 
         final ObjectMapper mapper = new ObjectMapper();
         final String jsonString;
