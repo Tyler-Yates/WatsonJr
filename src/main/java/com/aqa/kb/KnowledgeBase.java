@@ -14,6 +14,11 @@ import java.util.List;
 public class KnowledgeBase {
     protected final List<Document> documents = new ArrayList<>();
 
+    /**
+     * Returns the documents in the current knowledge base.
+     *
+     * @return the documents
+     */
     public List<Document> getDocuments() {
         return ImmutableList.copyOf(documents);
     }

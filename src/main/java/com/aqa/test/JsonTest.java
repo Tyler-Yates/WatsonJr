@@ -11,7 +11,15 @@ import edu.stanford.nlp.simple.Sentence;
 
 import java.util.List;
 
-public class JsonTest {
+/**
+ * Test class for creating a JSON string of a knowledge base.
+ */
+class JsonTest {
+    /**
+     * Runner method.
+     *
+     * @param args arguments
+     */
     public static void main(String[] args) {
         final SemanticRelation relation1 = new SemanticRelation("Agent",
                 ImmutableMap.of("event", "cook", "doer", "John"));
