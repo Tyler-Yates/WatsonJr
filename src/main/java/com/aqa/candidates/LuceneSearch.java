@@ -27,6 +27,7 @@ import java.io.IOException;
 public class LuceneSearch {
     public static final String ID_FIELD = "id";
     public static final String TEXT_FIELD = "text";
+
     private static final int MAX_RESULTS = 10;
 
     /**
