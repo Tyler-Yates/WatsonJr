@@ -24,6 +24,28 @@ public class KnowledgeBase {
     }
 
     /**
+     * Returns the document with the given ID if one exists, {@code null} otherwise.
+     *
+     * @param id the given ID
+     * @return the document or {@code null}
+     */
+    public Document getDocument(int id) {
+        // Document ID should be its index in the list
+        final Document bestGuess = documents.get(id);
+        if (bestGuess.getId() == id) {
+            return bestGuess;
+        }
+
+        // If not, search through all documents
+        for (final Document document : documents) {
+            if (document.getId() == id) {
+                return document;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Adds the given text as a document into the current knowledge base using the given semantic relation extractor.
      *
      * @param documentText              the document text

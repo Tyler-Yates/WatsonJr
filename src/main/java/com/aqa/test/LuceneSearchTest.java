@@ -1,16 +1,14 @@
 package com.aqa.test;
 
 import com.aqa.candidates.LuceneSearch;
+import com.aqa.candidates.RankedCandidate;
 import com.aqa.kb.KnowledgeBase;
 import com.aqa.relations.SemanticRelation;
 import com.aqa.relations.SemanticRelationExtractor;
 import edu.stanford.nlp.simple.Sentence;
 import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.store.Directory;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -37,19 +35,20 @@ public class LuceneSearchTest {
         knowledgeBase.addDocument("Bob works at Google in San Francisco.", extractor);
         knowledgeBase.addDocument("John works at Google in Boulder.", extractor);
 
-        final Directory index = LuceneSearch.createIndex(knowledgeBase);
-        performSearch(index, "Who works at Google?");
-        performSearch(index, "Who works at Google in San Francisco?");
-        performSearch(index, "Who works at Google in Boulder?");
+        final LuceneSearch luceneSearch = new LuceneSearch(knowledgeBase);
+        performSearch(luceneSearch, "Who works at Google?");
+        performSearch(luceneSearch, "Who works at Google in San Francisco?");
+        performSearch(luceneSearch, "Who works at Google in Boulder?");
     }
 
-    private static void performSearch(Directory index, String searchQuery) throws IOException, ParseException {
-        final ScoreDoc[] scoreDocs = LuceneSearch.searchIndex(index, searchQuery);
-        System.out.println(Arrays.toString(scoreDocs));
+    private static void performSearch(LuceneSearch luceneSearch,
+                                      String searchQuery) throws IOException, ParseException {
+        final List<RankedCandidate> rankedCandidates = luceneSearch.search(searchQuery);
+        System.out.println(rankedCandidates);
         System.out.println("Results:");
         System.out.println("----------------------------------");
-        for (final ScoreDoc scoreDoc : scoreDocs) {
-            System.out.println(LuceneSearch.getDocument(index, scoreDoc.doc).get(LuceneSearch.TEXT_FIELD));
+        for (final RankedCandidate rankedCandidate : rankedCandidates) {
+            System.out.println(rankedCandidate.getDocument().getText());
         }
         System.out.println("----------------------------------\n\n");
     }

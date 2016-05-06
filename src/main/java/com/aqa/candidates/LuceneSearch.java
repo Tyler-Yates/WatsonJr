@@ -20,29 +20,65 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Class to create and search a Lucene index.
+ * Class to create and search a Lucene index for a given knowledge base.
  */
 public class LuceneSearch {
-    public static final String ID_FIELD = "id";
-    public static final String TEXT_FIELD = "text";
-
+    private static final String ID_FIELD = "id";
+    private static final String TEXT_FIELD = "text";
     private static final int MAX_RESULTS = 10;
 
+    private final KnowledgeBase knowledgeBase;
+
+    private Directory index = null;
+
     /**
-     * Creates a Lucene index from the given {@link KnowledgeBase}.
+     * Creates a new Lucene index for the given knowledge base. Subsequent changes to the knowledge base will not be
+     * reflected in this instance. If you change the knowledge base you need to create a new instance with the modified
+     * knowledge base.
      *
      * @param knowledgeBase the given knowledge base
-     * @return the created Lucene index
-     * @throws IOException if there is an error creating the index
      */
-    public static Directory createIndex(KnowledgeBase knowledgeBase) throws IOException {
+    public LuceneSearch(KnowledgeBase knowledgeBase) {
+        this.knowledgeBase = knowledgeBase;
+    }
+
+    /**
+     * Executes the given search query and returns the ranked results.
+     *
+     * @param searchQuery the given search query
+     * @return the ranked results
+     * @throws IOException    if there was an error accessing the index
+     * @throws ParseException if there was an error parsing the query
+     */
+    public List<RankedCandidate> search(String searchQuery) throws IOException, ParseException {
+        final ScoreDoc[] scoreDocs = searchIndex(searchQuery);
+        final List<RankedCandidate> rankedCandidates = new ArrayList<>(scoreDocs.length);
+        for (final ScoreDoc scoreDoc : scoreDocs) {
+            final Document luceneDocument = getDocument(scoreDoc.doc);
+            final com.aqa.kb.Document knowledgeBaseDocument = knowledgeBase.getDocument(
+                    Integer.parseInt(luceneDocument.get(ID_FIELD)));
+            rankedCandidates.add(new RankedCandidate(searchQuery, scoreDoc.score, knowledgeBaseDocument));
+        }
+        return rankedCandidates;
+    }
+
+    /**
+     * Creates a Lucene index for the knowledge base.
+     *
+     * @throws IOException
+     */
+    private void createIndex() throws IOException {
+        // Create the index in memory
+        index = new RAMDirectory();
+
         // Configure and create the index writer
         final Analyzer analyzer = new StandardAnalyzer();
         final IndexWriterConfig indexWriterConfig = new IndexWriterConfig(analyzer);
-        final Directory indexDirectory = new RAMDirectory();
-        final IndexWriter indexWriter = new IndexWriter(indexDirectory, indexWriterConfig);
+        final IndexWriter indexWriter = new IndexWriter(index, indexWriterConfig);
 
         // Add each document from the knowledge base into the index
         for (final com.aqa.kb.Document document : knowledgeBase.getDocuments()) {
@@ -52,22 +88,24 @@ public class LuceneSearch {
             indexWriter.addDocument(doc);
         }
 
-        // Close the writer and return the new Lucene index
+        // Close the writer
         indexWriter.close();
-        return indexDirectory;
     }
 
     /**
      * Searches the given Lucene index using the given search string.
      *
-     * @param index        the given Lucene index
      * @param searchString the given search string
      * @return a scored array of documents
      * @throws IOException    if there was an error accessing the index
      * @throws ParseException if there was an error parsing the search string
      */
-    public static ScoreDoc[] searchIndex(Directory index, String searchString) throws IOException, ParseException {
+    private ScoreDoc[] searchIndex(String searchString) throws IOException, ParseException {
         System.out.println("Searching for '" + searchString + "'");
+
+        if (index == null) {
+            createIndex();
+        }
 
         final IndexSearcher searcher = new IndexSearcher(DirectoryReader.open(index));
         final QueryParser parser = new QueryParser(TEXT_FIELD, new StandardAnalyzer());
@@ -81,12 +119,15 @@ public class LuceneSearch {
     /**
      * Returns the document with the given ID, if one exists, from the given Lucene index.
      *
-     * @param index the given Lucene index
-     * @param id    the given ID
+     * @param id the given ID
      * @return the document
      * @throws IOException if there was an error accessing the index
      */
-    public static Document getDocument(Directory index, int id) throws IOException {
+    private Document getDocument(int id) throws IOException {
+        if (index == null) {
+            createIndex();
+        }
+
         final IndexSearcher searcher = new IndexSearcher(DirectoryReader.open(index));
         return searcher.getIndexReader().document(id);
     }
