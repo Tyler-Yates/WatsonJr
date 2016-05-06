@@ -51,6 +51,22 @@ public class RankedCandidate {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        final RankedCandidate that = (RankedCandidate) o;
+
+        return getDocument().equals(that.getDocument());
+
+    }
+
+    @Override
+    public int hashCode() {
+        return getDocument().hashCode();
+    }
+
+    @Override
     public String toString() {
         return "RankedCandidate{" +
                 "query='" + query + '\'' +
