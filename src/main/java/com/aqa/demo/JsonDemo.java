@@ -1,4 +1,4 @@
-package com.aqa.test;
+package com.aqa.demo;
 
 import com.aqa.kb.KnowledgeBase;
 import com.aqa.relations.SemanticRelation;
@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Test class for creating a JSON string of a knowledge base.
  */
-class JsonTest {
+class JsonDemo {
     /**
      * Runner method.
      *

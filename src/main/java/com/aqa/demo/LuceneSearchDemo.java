@@ -1,4 +1,4 @@
-package com.aqa.test;
+package com.aqa.demo;
 
 import com.aqa.candidates.LuceneSearch;
 import com.aqa.candidates.RankedCandidate;
@@ -15,9 +15,9 @@ import java.util.List;
 /**
  * Test class for creating and searching a Lucene index.
  */
-class LuceneSearchTest {
+class LuceneSearchDemo {
     /**
-     * Method to test the index creation and search.
+     * Method to demo the index creation and search.
      *
      * @param args arguments
      * @throws Exception if an exception occurs

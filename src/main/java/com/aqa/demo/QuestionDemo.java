@@ -1,4 +1,4 @@
-package com.aqa.test;
+package com.aqa.demo;
 
 import com.aqa.candidates.RankedCandidate;
 import com.aqa.kb.Document;
@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Test class for matching relations of a question.
  */
-class QuestionTest {
+class QuestionDemo {
     /**
      * Runner method.
      *

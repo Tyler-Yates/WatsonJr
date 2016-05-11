@@ -1,4 +1,4 @@
-package com.aqa.test;
+package com.aqa.demo;
 
 import edu.stanford.nlp.simple.Document;
 import edu.stanford.nlp.simple.Sentence;
@@ -6,7 +6,7 @@ import edu.stanford.nlp.simple.Sentence;
 /**
  * Test class for interfacing with CoreNLP.
  */
-class CoreNlpTest {
+class CoreNlpDemo {
     /**
      * Runner method
      *
