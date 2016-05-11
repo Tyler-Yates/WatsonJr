@@ -56,7 +56,7 @@ public class KnowledgeBase {
         final Sentence sentence = new Sentence(documentText);
         final List<SemanticRelation> semanticRelations = semanticRelationExtractor.extractSemanticRelations(sentence);
         documents.add(new Document(id, documentText, sentence.words(), sentence.parse().toString(), sentence.nerTags(),
-                semanticRelations));
+                sentence.dependencyGraph().toCompactString(), semanticRelations));
     }
 
     @Override

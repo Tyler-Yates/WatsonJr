@@ -14,27 +14,34 @@ public class Document {
     protected final List<String> words;
     protected final String parse;
     protected final List<String> nerTags;
+    protected final String dependencies;
     protected final List<SemanticRelation> semanticRelations;
 
     /**
-     * Creates a new document with the given ID, text, words, parse string, NER tags, and semantic relations.
+     * Creates a new document with the given ID, text, words, parse string, NER tags, dependencies, and semantic
+     * relations.
      *
      * @param id                the given ID
      * @param text              the given text
      * @param words             the given words
      * @param parse             the given parse string
      * @param nerTags           the given NER tags
+     * @param dependencies      the given dependencies
      * @param semanticRelations the given semantic relations
      */
-    public Document(@JsonProperty("id") int id, @JsonProperty("text") String text,
-                    @JsonProperty("words") List<String> words, @JsonProperty("parse") String parse,
+    public Document(@JsonProperty("id") int id,
+                    @JsonProperty("text") String text,
+                    @JsonProperty("words") List<String> words,
+                    @JsonProperty("parse") String parse,
                     @JsonProperty("nerTags") List<String> nerTags,
+                    @JsonProperty("dependencies") String dependencies,
                     @JsonProperty("semanticRelations") List<SemanticRelation> semanticRelations) {
         this.id = id;
         this.text = text;
         this.words = words;
         this.parse = parse;
         this.nerTags = nerTags;
+        this.dependencies = dependencies;
         this.semanticRelations = semanticRelations;
     }
 
@@ -84,6 +91,15 @@ public class Document {
     }
 
     /**
+     * Returns the dependencies of the current document.
+     *
+     * @return the dependencies
+     */
+    public String getDependencies() {
+        return dependencies;
+    }
+
+    /**
      * Returns the semantic relations of the current document.
      *
      * @return the semantic relations
@@ -100,7 +116,6 @@ public class Document {
         final Document document = (Document) o;
 
         return getId() == document.getId() && getText().equals(document.getText());
-
     }
 
     @Override
@@ -114,7 +129,11 @@ public class Document {
     public String toString() {
         return "Document{" +
                 "id=" + id +
+                ", text='" + text + '\'' +
+                ", words=" + words +
                 ", parse='" + parse + '\'' +
+                ", nerTags=" + nerTags +
+                ", dependencies='" + dependencies + '\'' +
                 ", semanticRelations=" + semanticRelations +
                 '}';
     }
