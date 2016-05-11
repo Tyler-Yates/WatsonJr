@@ -1,4 +1,5 @@
-import com.aqa.relations.SemanticRelation;
+package com.aqa.relations;
+
 import com.google.common.collect.ImmutableMap;
 import org.junit.Test;
 
