@@ -11,7 +11,17 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
- * Represents a semantic relation.
+ * Represents a semantic relation. Every semantic relation has a name and some number of features. Features are
+ * represented by a {@link Map} of String keys and values. The keys in the map are the names of the features and the
+ * values in the map are the values of the features.
+ * <p>
+ * For example, say we have a semantic relation called "Employment" which has three features: "employee", "employer",
+ * and "location". Given the sentence {@code "John works at Google in San Francisco."} we can construct an Employment
+ * semantic relation: {@code Employment("employee"="John", "employer"="Google", "location"="San Francisco")}.
+ * <p>
+ * Not every feature has to have a value: features can have {@code null} values. For instance, given the sentence {@code
+ * "John works at Google."} we can construct an Employment relation: {@code Employment("employee"="John",
+ * "employer"="Google", "location"=null)}.
  */
 public class SemanticRelation {
     protected final String name;
@@ -39,7 +49,7 @@ public class SemanticRelation {
 
     /**
      * Returns the features of the semantic relation. The features are represented as a map from feature name to feature
-     * value. Feature values are {@code null} if the feature is not present in the semantic relation.
+     * value. Feature values may be {@code null}.
      *
      * @return the features
      */
