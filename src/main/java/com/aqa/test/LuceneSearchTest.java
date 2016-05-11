@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Test class for creating and searching a Lucene index.
  */
-public class LuceneSearchTest {
+class LuceneSearchTest {
     /**
      * Method to test the index creation and search.
      *

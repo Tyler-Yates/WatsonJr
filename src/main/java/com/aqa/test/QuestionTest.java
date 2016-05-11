@@ -21,7 +21,7 @@ import java.util.Map;
 /**
  * Test class for matching relations of a question.
  */
-public class QuestionTest {
+class QuestionTest {
     /**
      * Runner method.
      *
