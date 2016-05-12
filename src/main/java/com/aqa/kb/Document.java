@@ -29,13 +29,13 @@ public class Document {
      * @param dependencies      the given dependencies
      * @param semanticRelations the given semantic relations
      */
-    public Document(@JsonProperty("id") int id,
-                    @JsonProperty("text") String text,
-                    @JsonProperty("words") List<String> words,
-                    @JsonProperty("parse") String parse,
-                    @JsonProperty("nerTags") List<String> nerTags,
-                    @JsonProperty("dependencies") String dependencies,
-                    @JsonProperty("semanticRelations") List<SemanticRelation> semanticRelations) {
+    Document(@JsonProperty("id") int id,
+             @JsonProperty("text") String text,
+             @JsonProperty("words") List<String> words,
+             @JsonProperty("parse") String parse,
+             @JsonProperty("nerTags") List<String> nerTags,
+             @JsonProperty("dependencies") String dependencies,
+             @JsonProperty("semanticRelations") List<SemanticRelation> semanticRelations) {
         this.id = id;
         this.text = text;
         this.words = words;
