@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Represents a single knowledge base.
+ * Represents a single knowledge base. A knowledge base contains zero or more {@link Document}s.
+ * <p>
+ * Documents can only be added to a knowledge base, not removed.
  */
 public class KnowledgeBase {
     protected final List<Document> documents = new ArrayList<>();

@@ -1,12 +1,21 @@
 package com.aqa.kb;
 
 import com.aqa.relations.SemanticRelation;
+import com.aqa.relations.SemanticRelationExtractor;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import edu.stanford.nlp.simple.Sentence;
 
 import java.util.List;
 
 /**
- * Represents a single document in a knowledge base.
+ * Represents a single document in a {@link KnowledgeBase}. For this project, a document is a single sentence.
+ * <p>
+ * Every document contains information obtained from CoreNLP's {@link Sentence} class and a {@link
+ * SemanticRelationExtractor}. This information will help your system get around the difficulties of natural language in
+ * order to answer questions from users. For instance, CoreNLP has a Named Entity Recognizer (NER) which allows you to
+ * know whether "Virginia" refers to a person or a location.
+ * <p>
+ * Each document has a unique ID. This ID can be used to pull specific documents from a knowledge base.
  */
 public class Document {
     protected final int id;
@@ -110,8 +119,10 @@ public class Document {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         final Document document = (Document) o;
 
