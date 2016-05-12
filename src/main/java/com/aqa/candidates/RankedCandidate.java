@@ -3,7 +3,8 @@ package com.aqa.candidates;
 import com.aqa.kb.Document;
 
 /**
- * Class representing a ranked candidate answer for a specific query.
+ * Class representing a single ranked candidate answer for a specific query. A candidate answer is a single {@link
+ * Document}.
  */
 public class RankedCandidate implements Comparable<RankedCandidate> {
     private final float score;
@@ -40,8 +41,10 @@ public class RankedCandidate implements Comparable<RankedCandidate> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         final RankedCandidate that = (RankedCandidate) o;
 
