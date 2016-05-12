@@ -15,7 +15,7 @@ public class RankedCandidate implements Comparable<RankedCandidate> {
      * @param score    the given score
      * @param document the given document
      */
-    public RankedCandidate(float score, Document document) {
+    RankedCandidate(float score, Document document) {
         this.score = score;
         this.document = document;
     }
