@@ -1,9 +1,7 @@
 package com.aqa.relations;
 
-import com.aqa.candidates.RankedCandidate;
+import com.aqa.candidates.RankedCandidates;
 import com.aqa.kb.KnowledgeBase;
-
-import java.util.List;
 
 /**
  * Interface for classes that match semantic relations extracted from a question.
@@ -15,8 +13,8 @@ public interface SemanticRelationMatcher {
      * @param knowledgeBase             the given knowledge base
      * @param question                  the given knowledge base
      * @param semanticRelationExtractor the given knowledge base
-     * @return the ranked documents
+     * @return the ranked candidate answers for the question
      */
-    List<RankedCandidate> matchRelations(KnowledgeBase knowledgeBase, String question,
-                                         SemanticRelationExtractor semanticRelationExtractor);
+    RankedCandidates matchRelations(KnowledgeBase knowledgeBase, String question,
+                                    SemanticRelationExtractor semanticRelationExtractor);
 }

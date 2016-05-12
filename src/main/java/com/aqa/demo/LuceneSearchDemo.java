@@ -2,6 +2,7 @@ package com.aqa.demo;
 
 import com.aqa.candidates.LuceneSearch;
 import com.aqa.candidates.RankedCandidate;
+import com.aqa.candidates.RankedCandidates;
 import com.aqa.kb.KnowledgeBase;
 import com.aqa.relations.SemanticRelation;
 import com.aqa.relations.SemanticRelationExtractor;
@@ -43,11 +44,11 @@ class LuceneSearchDemo {
 
     private static void performSearch(LuceneSearch luceneSearch,
                                       String searchQuery) throws IOException, ParseException {
-        final List<RankedCandidate> rankedCandidates = luceneSearch.search(searchQuery);
+        final RankedCandidates rankedCandidates = luceneSearch.search(searchQuery);
         System.out.println(rankedCandidates);
         System.out.println("Results:");
         System.out.println("----------------------------------");
-        for (final RankedCandidate rankedCandidate : rankedCandidates) {
+        for (final RankedCandidate rankedCandidate : rankedCandidates.getRankedCandidates()) {
             System.out.println(rankedCandidate.getDocument().getText());
         }
         System.out.println("----------------------------------\n\n");

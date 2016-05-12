@@ -20,8 +20,6 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class to create and search a Lucene index for a given knowledge base.
@@ -54,16 +52,16 @@ public class LuceneSearch {
      * @throws IOException    if there was an error accessing the index
      * @throws ParseException if there was an error parsing the query
      */
-    public List<RankedCandidate> search(String searchQuery) throws IOException, ParseException {
+    public RankedCandidates search(String searchQuery) throws IOException, ParseException {
         final ScoreDoc[] scoreDocs = searchIndex(searchQuery);
-        final List<RankedCandidate> rankedCandidates = new ArrayList<>(scoreDocs.length);
+        final RankedCandidates.Builder rankedCandidatesBuilder = new RankedCandidates.Builder(searchQuery);
         for (final ScoreDoc scoreDoc : scoreDocs) {
             final Document luceneDocument = getDocument(scoreDoc.doc);
             final com.aqa.kb.Document knowledgeBaseDocument = knowledgeBase.getDocument(
                     Integer.parseInt(luceneDocument.get(ID_FIELD)));
-            rankedCandidates.add(new RankedCandidate(searchQuery, scoreDoc.score, knowledgeBaseDocument));
+            rankedCandidatesBuilder.addCandidate(knowledgeBaseDocument, scoreDoc.score);
         }
-        return rankedCandidates;
+        return rankedCandidatesBuilder.build();
     }
 
     /**

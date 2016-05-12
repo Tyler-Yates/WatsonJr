@@ -1,19 +1,15 @@
 package com.aqa.demo;
 
-import com.aqa.candidates.RankedCandidate;
+import com.aqa.candidates.RankedCandidates;
 import com.aqa.kb.Document;
 import com.aqa.kb.KnowledgeBase;
 import com.aqa.relations.SemanticRelation;
 import com.aqa.relations.SemanticRelationExtractor;
 import com.aqa.relations.SemanticRelationMatcher;
-import com.google.common.base.Functions;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSortedMap;
-import com.google.common.collect.Ordering;
 import edu.stanford.nlp.simple.Sentence;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,8 +61,8 @@ class QuestionDemo {
         // Semantic relation matcher
         final SemanticRelationMatcher semanticRelationMatcher = new SemanticRelationMatcher() {
             @Override
-            public List<RankedCandidate> matchRelations(KnowledgeBase knowledgeBase, String question,
-                                                        SemanticRelationExtractor semanticRelationExtractor) {
+            public RankedCandidates matchRelations(KnowledgeBase knowledgeBase, String question,
+                                                   SemanticRelationExtractor semanticRelationExtractor) {
                 final List<SemanticRelation> questionRelations = semanticRelationExtractor.extractSemanticRelations(
                         new Sentence(question));
 
@@ -117,16 +113,11 @@ class QuestionDemo {
                 }
 
                 // Sort and return the results
-                final Ordering<Document> documentOrdering = Ordering.natural().reverse().onResultOf(
-                        Functions.forMap(scores));
-                final ImmutableSortedMap<Document, Float> sortedDocuments = ImmutableSortedMap.copyOf(
-                        scores, documentOrdering);
-                final List<RankedCandidate> rankedCandidates = new ArrayList<>(sortedDocuments.size());
-                for (final Map.Entry<Document, Float> documentScoreEntry : sortedDocuments.entrySet()) {
-                    rankedCandidates.add(
-                            new RankedCandidate(question, documentScoreEntry.getValue(), documentScoreEntry.getKey()));
+                final RankedCandidates.Builder rankedCandidatesBuilder = new RankedCandidates.Builder(question);
+                for (final Map.Entry<Document, Float> documentScoreEntry : scores.entrySet()) {
+                    rankedCandidatesBuilder.addCandidate(documentScoreEntry.getKey(), documentScoreEntry.getValue());
                 }
-                return rankedCandidates;
+                return rankedCandidatesBuilder.build();
             }
         };
 
@@ -144,7 +135,7 @@ class QuestionDemo {
         };
 
         // Get the results
-        final List<RankedCandidate> rankedCandidates = semanticRelationMatcher.matchRelations(knowledgeBase,
+        final RankedCandidates rankedCandidates = semanticRelationMatcher.matchRelations(knowledgeBase,
                 "Who works at Google in San Francisco?", questionRelationExtractor);
         System.out.println("Ranked candidates: " + rankedCandidates);
     }

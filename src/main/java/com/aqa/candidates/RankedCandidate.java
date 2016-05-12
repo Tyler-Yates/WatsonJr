@@ -5,31 +5,19 @@ import com.aqa.kb.Document;
 /**
  * Class representing a ranked candidate answer for a specific query.
  */
-public class RankedCandidate {
-    private final String query;
+public class RankedCandidate implements Comparable<RankedCandidate> {
     private final float score;
     private final Document document;
 
     /**
      * Creates a new ranked candidate for the given query with the given score representing the given document.
      *
-     * @param query    the given query
      * @param score    the given score
      * @param document the given document
      */
-    public RankedCandidate(String query, float score, Document document) {
-        this.query = query;
+    public RankedCandidate(float score, Document document) {
         this.score = score;
         this.document = document;
-    }
-
-    /**
-     * Returns the query that produced the current candidate.
-     *
-     * @return the query
-     */
-    public String getQuery() {
-        return query;
     }
 
     /**
@@ -69,9 +57,14 @@ public class RankedCandidate {
     @Override
     public String toString() {
         return "RankedCandidate{" +
-                "query='" + query + '\'' +
-                ", score=" + score +
+                "score=" + score +
                 ", document=" + document +
                 '}';
+    }
+
+    @Override
+    public int compareTo(RankedCandidate o) {
+        // We want candidates sorted from greatest score to lowest score so negate the result of the compare
+        return -Float.compare(score, o.score);
     }
 }
