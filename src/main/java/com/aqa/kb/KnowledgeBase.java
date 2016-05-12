@@ -32,6 +32,11 @@ public class KnowledgeBase {
      * @return the document or {@code null}
      */
     public Document getDocument(int id) {
+        // Make sure the index isn't out of bounds
+        if (id < 0 || id >= documents.size()) {
+            return null;
+        }
+
         // Document ID should be its index in the list
         final Document bestGuess = documents.get(id);
         if (bestGuess.getId() == id) {
