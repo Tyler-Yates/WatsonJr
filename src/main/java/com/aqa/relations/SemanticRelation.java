@@ -57,6 +57,17 @@ public class SemanticRelation {
         return features;
     }
 
+    /**
+     * Returns the value of the feature with the given name in the semantic relation. If the feature does not exist,
+     * {@code null} is returned.
+     *
+     * @param featureName the given name
+     * @return the feature value or {@code null} if the feature does not exist
+     */
+    public String getFeatureValue(String featureName) {
+        return features.get(featureName);
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(name, features.keySet());
@@ -64,8 +75,10 @@ public class SemanticRelation {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
         final SemanticRelation that = (SemanticRelation) o;
 
