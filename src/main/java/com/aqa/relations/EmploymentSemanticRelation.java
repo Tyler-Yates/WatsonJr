@@ -9,10 +9,13 @@ import java.util.Map;
  * Represents a {@link SemanticRelation} that refers to employment.
  */
 public class EmploymentSemanticRelation extends SemanticRelation {
-    public static String NAME = "Employment";
-    public static String EMPLOYEE_FEATURE = "employee";
-    public static String EMPLOYER_FEATURE = "employer";
-    public static String LOCATION_FEATURE = "location";
+    // The name of the semantic relation
+    public static String RELATION_NAME = "Employment";
+
+    // The names of the features
+    public static String EMPLOYEE_FEATURE_NAME = "employee";
+    public static String EMPLOYER_FEATURE_NAME = "employer";
+    public static String LOCATION_FEATURE_NAME = "location";
 
     private EmploymentSemanticRelation(@JsonProperty("name") String name,
                                        @JsonProperty("features") Map<String, String> features) {
@@ -29,9 +32,9 @@ public class EmploymentSemanticRelation extends SemanticRelation {
      */
     public static EmploymentSemanticRelation createRelation(String employee, String employer, String location) {
         final Map<String, String> features = new HashMap<>();
-        features.put(EMPLOYEE_FEATURE, employee);
-        features.put(EMPLOYER_FEATURE, employer);
-        features.put(LOCATION_FEATURE, location);
-        return new EmploymentSemanticRelation(NAME, features);
+        features.put(EMPLOYEE_FEATURE_NAME, employee);
+        features.put(EMPLOYER_FEATURE_NAME, employer);
+        features.put(LOCATION_FEATURE_NAME, location);
+        return new EmploymentSemanticRelation(RELATION_NAME, features);
     }
 }
