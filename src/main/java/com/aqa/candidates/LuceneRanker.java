@@ -9,7 +9,7 @@ import com.aqa.kb.KnowledgeBase;
 public class LuceneRanker implements Ranker {
     @Override
     public RankedCandidates answerQuestion(KnowledgeBase knowledgeBase, String question) {
-        // TODO Use the Lucene to create an in-memory index of the knowledge base and
+        // TODO Use Lucene to create an in-memory index of the knowledge base and execute the question as a search query
         return null;
     }
 }
