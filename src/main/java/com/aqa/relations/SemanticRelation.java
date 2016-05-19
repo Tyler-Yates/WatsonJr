@@ -23,7 +23,7 @@ import java.util.TreeSet;
  * "John works at Google."} we can construct an Employment relation: {@code Employment("employee"="John",
  * "employer"="Google", "location"=null)}.
  */
-public class SemanticRelation {
+public abstract class SemanticRelation {
     protected final String name;
     protected final Map<String, String> features;
 
