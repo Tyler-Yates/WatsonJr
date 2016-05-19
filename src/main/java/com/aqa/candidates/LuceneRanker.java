@@ -10,6 +10,13 @@ import com.aqa.kb.KnowledgeBase;
  * You should only access the text of the documents (using {@link Document#getText()}) from the knowledge base. You will
  * not need to use the information from CoreNLP in the document because Lucene will handle the natural language
  * processing for you.
+ * <p>
+ * The following links are useful for finding out how to use Lucene:
+ * <p>
+ * <a href="http://oak.cs.ucla.edu/cs144/projects/lucene/">http://oak.cs.ucla.edu/cs144/projects/lucene/</a>
+ * <p>
+ * <a href="https://lucene.apache.org/core/6_0_0/core/overview-summary.html">https://lucene.apache
+ * .org/core/6_0_0/core/overview-summary.html</a>
  */
 public class LuceneRanker implements Ranker {
     @Override
