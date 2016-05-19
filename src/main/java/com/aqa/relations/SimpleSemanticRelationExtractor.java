@@ -7,6 +7,11 @@ import java.util.List;
 /**
  * The class that extracts {@link SemanticRelation}s from documents. You will need to implement the {@link
  * #extractSemanticRelations(Sentence)} method.
+ * <p>
+ * You will need to use the information from CoreNLP in order to identify semantic relations. The information from
+ * CoreNLP is contained within the {@link Sentence} that is given to the {@link #extractSemanticRelations(Sentence)}
+ * method. Here are some of the methods from {@link Sentence} that will be useful: {@link Sentence#lemmas()}, {@link
+ * Sentence#nerTags()}, {@link Sentence#parse()}, {@link Sentence#words()}, {@link Sentence#dependencyGraph()}.
  */
 public class SimpleSemanticRelationExtractor implements SemanticRelationExtractor {
     private static final SimpleSemanticRelationExtractor simpleSemanticRelationExtractor =
