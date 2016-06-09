@@ -22,6 +22,14 @@ public class LuceneRanker implements Ranker {
     @Override
     public RankedCandidates answerQuestion(KnowledgeBase knowledgeBase, String question) {
         // TODO Use Lucene to create an in-memory index of the knowledge base and execute the question as a search query
+
+        // Use RAMDirectory from org.apache.lucene.store to create the index in memory
+
+        // Use IndexWriter from org.apache.lucene.index to add documents to the index
+
+        // Use Query from org.apache.lucene.search to turn the String question into a Lucene query
+
+        // Use IndexSearcher from org.apache.lucene.search to execute the query
         return null;
     }
 }
