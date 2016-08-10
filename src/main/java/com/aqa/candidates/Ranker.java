@@ -1,6 +1,9 @@
 package com.aqa.candidates;
 
 import com.aqa.kb.KnowledgeBase;
+import org.apache.lucene.queryparser.classic.ParseException;
+
+import java.io.IOException;
 
 /**
  * Interface for classes that generate ranked candidate answers for questions.
@@ -13,5 +16,5 @@ public interface Ranker {
      * @param question      the given question
      * @return the ranked candidate answers
      */
-    RankedCandidates answerQuestion(KnowledgeBase knowledgeBase, String question);
+    RankedCandidates answerQuestion(KnowledgeBase knowledgeBase, String question) throws IOException, ParseException;
 }

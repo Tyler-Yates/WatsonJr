@@ -7,9 +7,11 @@ import com.aqa.relations.EmploymentSemanticRelation;
 import com.aqa.relations.SemanticRelation;
 import com.google.common.collect.ImmutableList;
 import edu.stanford.nlp.simple.Sentence;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -49,7 +51,7 @@ public class SemanticRelationRankerTest {
         assertQueryResultsCorrect("Who is employed by Google in San Francisco?", ImmutableList.of(DOC_2, DOC_1, DOC_4));
     }
 
-    private void assertQueryResultsCorrect(String query, List<Document> documents) {
+    private void assertQueryResultsCorrect(String query, List<Document> documents) throws IOException, ParseException {
         final RankedCandidates rankedCandidates = semanticRelationRanker.answerQuestion(knowledgeBase, query);
         assertNotNull(rankedCandidates);
 

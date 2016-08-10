@@ -32,6 +32,11 @@ public class SimpleSemanticRelationExtractor implements SemanticRelationExtracto
     @Override
     public List<SemanticRelation> extractSemanticRelations(Sentence document) {
         // TODO Implement a system for examining a document and extracting semantic relations.
+
+        // Use EmploymentSemanticRelation.createRelation(...) to create a semantic relation about employment.
+        //
+        // You will need to use CoreNLP methods in the Sentence class to get the information you need to pass to the
+        // createRelation method.
         return null;
     }
 }
