@@ -82,7 +82,7 @@ public abstract class SemanticRelation {
 
         final SemanticRelation that = (SemanticRelation) o;
 
-        return name.equals(that.name) && features.keySet().equals(that.features.keySet());
+        return name.equals(that.name) && features.equals(that.features);
     }
 
     @Override
